@@ -7,6 +7,7 @@ RSpec.describe Order, :type => :model do
     @item = Item.first
     @line_item = @cart.add_item(@item.id)
     @line_item.save
+    # binding.pry
     @order.change_order_status
   end
 

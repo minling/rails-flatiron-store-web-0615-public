@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'rails_helper'  
 
 RSpec.describe Cart, :type => :model do
   before do 
@@ -18,6 +18,7 @@ RSpec.describe Cart, :type => :model do
   end
 
   it 'can calculate its total' do 
+    # binding.pry
     expect(Cart.first.total).to eq(Cart.first.items.first.price)
   end
 
