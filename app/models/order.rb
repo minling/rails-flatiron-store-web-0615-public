@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   def self.create_from_cart(cart)
     @order = self.new
     @order.cart_id = cart.id
+    @order.total = cart.total
     @order.save
     @order
     # Order(id: integer, status: string, total: integer, user_id: integer, cart_id: integer)

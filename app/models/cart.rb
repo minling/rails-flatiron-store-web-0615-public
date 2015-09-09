@@ -9,7 +9,9 @@ class Cart < ActiveRecord::Base
       @line_item.cart_id = self.id
       @line_item.item_id = item_id
       @line_item.quantity = 1
+      @line_item.save
     else
+      # binding.pry
       li = LineItem.where(item_id: "#{item_id}").first
       li.quantity += 1
       @line_item = li
