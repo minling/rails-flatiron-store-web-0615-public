@@ -4,6 +4,7 @@ describe 'Feature Test: Cart Session', :type => :feature do
   before do
     visit "/"
     first('.button_to').click_on("Add to Cart")
+    # save_and_open_page
     @cart = Cart.find(page.get_rack_session_key('cart_id'))
     visit "/"
   end

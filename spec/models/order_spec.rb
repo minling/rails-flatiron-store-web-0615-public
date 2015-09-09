@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Order, :type => :model do
   before do 
     @cart = Cart.first
-    @order = Order.create_from_cart(@cart)
     @item = Item.first
     @line_item = @cart.add_item(@item.id)
     @line_item.save
+    @order = Order.create_from_cart(@cart)
     # binding.pry
     @order.change_order_status
   end

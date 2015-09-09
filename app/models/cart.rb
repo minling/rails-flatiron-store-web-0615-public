@@ -24,23 +24,37 @@ class Cart < ActiveRecord::Base
   end
 
   def total
-    product = Hash.new
-    self.items.map do |item|
-      product["#{item.title}"] = {}
-      product["#{item.title}"][:id] = item.id
-      product["#{item.title}"][:price] = item.price
+    # binding.pry
+    prices = self.line_items.map do |line_item|
+      # binding.pry
+      quantity = line_item.quantity
+      price = line_item.item.price
+      quantity * price
     end
+    # binding.pry
+    prices.inject(:+)
 
-    self.line_items.map do |line_item|
-      product[line_item.item.title][:quantity] = line_item.quantity
-    end
 
-    total = []
-    product.each do |item|
-      total << item.last[:price] * item.last[:quantity]
-    end
-    total.inject(:+)
+    # product = Hash.new
+    # self.items.map do |item|
+    #   product["#{item.title}"] = {}
+    #   product["#{item.title}"][:id] = item.id
+    #   product["#{item.title}"][:price] = item.price
+    # end
+
+    # self.line_items.map do |line_item|
+    #   product[line_item.item.title][:quantity] = line_item.quantity
+    # end
+
+    # total = []
+    # product.each do |item|
+    #   total << item.last[:price] * item.last[:quantity]
+    # end
+    # total.inject(:+)
     # total = self.items.first.price * self.line_items.first.quantity
   end
-
+# QUESTIONNNNNNN 
+# for total, there will be multiple items right? or else i just have to do line 43.
+#  for order model, change_inventory, i did it as if there were more than 1 item.
+#  for order model, when do I actually add the cart total to the order.total??
 end

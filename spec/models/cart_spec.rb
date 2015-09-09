@@ -19,7 +19,23 @@ RSpec.describe Cart, :type => :model do
 
   it 'can calculate its total' do 
     # binding.pry
-    expect(Cart.first.total).to eq(Cart.first.items.first.price)
+    @item = Item.last
+    @cart = Cart.first 
+    @line_item = @cart.add_item(@item.id)
+    @line_item.save
+    expect(@cart.total).to eq(@line_item.item.price + @cart.line_items.first.item.price)
+  end
+
+  it 'can calculate the total when there are more than one of the same item' do 
+    @item_a = Item.last
+    @cart = Cart.first 
+    @line_item1 = @cart.add_item(@item_a.id)
+    @line_item1.save
+    @line_item2 = @cart.add_item(@item_a.id)
+    @line_item2.save
+
+    total = (@item_a.price * 2) + @cart.items.first.price
+    expect(@cart.total).to eq(total)
   end
 
   it 'consolidates multiple same line_items in add_item method' do 
